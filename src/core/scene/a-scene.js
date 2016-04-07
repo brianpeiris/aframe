@@ -211,16 +211,15 @@ var AScene = module.exports = registerElement('a-scene', {
         // Set at startup. To enable/disable antialias
         // at runttime we would have to recreate the whole context
         var antialias = this.getAttribute('antialias') === 'true';
+        var renderer;
         if (window.altspace && window.altspace.inClient) {
-          console.log('window.devicePixelRatio', window.devicePixelRatio);
           var scene = this.object3D;
-          altspace.getEnclosure().then(function(e) {
+          window.altspace.getEnclosure().then(function (e) {
             console.log('Setting scene scale to', e.pixelsPerMeter);
             scene.scale.multiplyScalar(e.pixelsPerMeter);
           });
-          console.log('window.devicePixelRatio', window.devicePixelRatio);
-          var renderer = this.renderer =  altspace.getThreeJSRenderer({version: '0.2.0'});
-          var noop = function() {};
+          var noop = function () {};
+          renderer = this.renderer = window.altspace.getThreeJSRenderer({version: '0.2.0'});
           renderer.setSize = noop;
           renderer.setPixelRatio = noop;
           renderer.setClearColor = noop;
@@ -235,7 +234,7 @@ var AScene = module.exports = registerElement('a-scene', {
           renderer.shadowMap = {};
           AScene.renderer = renderer;
         } else {
-          var renderer = this.renderer = this.monoRenderer = new THREE.WebGLRenderer({
+          renderer = this.renderer = this.monoRenderer = new THREE.WebGLRenderer({
             canvas: canvas,
             antialias: antialias,
             alpha: true
