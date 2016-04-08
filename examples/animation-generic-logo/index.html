@@ -7,7 +7,7 @@
     <script src="../../dist/aframe.js"></script>
   </head>
   <body>
-    <a-scene>
+    <a-scene scale="10 10 10"> <!-- alt-scale -->
       <a-assets>
         <a-mixin id="frame-edge" geometry="primitive: box; depth: 10; height: 0.1; width: 0.1"
                                  material="color: #404040"></a-mixin>
@@ -16,7 +16,7 @@
       <a-camera fov="80" near="0.1" wasd-controls-enabled="false"></a-camera>
 
       <!-- A generic logo made of animated elements -->
-      <a-entity id="logo" position="0 0.15 -1" scale=".5 .5 .5">
+      <a-entity id="logo" position="0 0.15 0" scale=".5 .5 .5"> <!-- alt-position -->
         <a-entity id="box">
           <a-animation attribute="scale" from="0 0 0" to="1 1 1" begin="500" dur="500" fill="both" easing="ease-out"></a-animation>
           <a-animation attribute="position" from="0 -0.5 0" to="0 0 0" begin="500" dur="500" fill="both" easing="ease-out"></a-animation>

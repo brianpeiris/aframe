@@ -7,13 +7,13 @@
     <script src="../../dist/aframe.js"></script>
   </head>
   <body>
-    <a-scene>
+    <a-scene scale="1 1 1"><!-- alt-scale -->
       <a-assets>
         <a-mixin id="frame-edge" geometry="primitive: box; depth: 10; height: 0.1; width: 0.1"
                                  material="color: #404040"></a-mixin>
       </a-assets>
 
-      <a-entity position="0 0 -7" rotation="0 45 0">
+      <a-entity position="0 0 -7" rotation="0 45 0"><!-- alt-position -->
         <a-box src="http://i.imgur.com/6qHKYGf.png" position="-5 0 -2" rotation="0 0 0" width="1" color="#F16745"></a-box>
         <a-box position="0 0 0" rotation="0 0 0" height="2" color="#FFC65D"></a-box>
         <a-box position="5 0 2" rotation="0 0 0" depth="5" color="#7BC8A4"></a-box>

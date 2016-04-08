@@ -7,7 +7,7 @@
     <script src="../../dist/aframe.js"></script>
   </head>
   <body>
-    <a-scene stats="true">
+    <a-scene>
       <a-assets>
         <a-mixin id="wing" geometry="primitive: box; depth: .005; height: 1;
                                      translate: -0.25 0 0; width: 0.5"
@@ -28,7 +28,7 @@
       </a-entity>
 
       <!-- Butterfly with pivoting wings via translation. -->
-      <a-entity position="0 2.5 -5">
+      <a-entity position="0 2.5 0"><!-- alt-position -->
         <a-animation attribute="rotation" to="0 360 0" fill="forwards" dur="3000"
                      easing="linear" repeat="indefinite"></a-animation>
         <a-entity rotation="0 90 0" position="2.5 0 0">

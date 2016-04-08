@@ -7,7 +7,7 @@
     <script src="../../dist/aframe.js"></script>
   </head>
   <body>
-    <a-scene stats="true">
+    <a-scene scale="0.1 0.1 0.1"><!-- alt-scale -->
       <a-assets>
         <a-cubemap id="reflection">
           <img src="../_images/textures/milkyway/px.jpg">
@@ -72,7 +72,7 @@
               obj.setAttribute('position', {
                 x: alpha * 50,
                 y: beta * 50 - 25,
-                z: gamma * 50 - 150
+                z: gamma * 50 // alt-position
               });
               scene.appendChild(obj);
             }

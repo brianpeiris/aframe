@@ -5,12 +5,14 @@
     <title>Stress Test - Large Number of Entities</title>
     <meta name="description" content="Stress Test - Large Number of Entities - A-Frame">
     <script src="../../dist/aframe.js"></script>
+    <!--
     <style>
       body { background-color: black; }
     </style>
+    -->
   </head>
   <body>
-    <a-scene stats="true">
+    <a-scene scale="0.1 0.1 0.1"><!-- alt-scale -->
       <a-assets>
         <a-mixin id="cube" geometry="primitive: box; height: 16; width: 16; depth: 16;"
                  material="color: #167341; roughness: 1.0; metalness: 0.2;"></a-mixin>
