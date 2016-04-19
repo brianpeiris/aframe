@@ -216,7 +216,7 @@ var AScene = module.exports = registerElement('a-scene', {
           var scene = this.object3D;
           window.altspace.getEnclosure().then(function (e) {
             console.log('Setting scene scale to', e.pixelsPerMeter);
-            scene.scale.multiplyScalar(e.pixelsPerMeter);
+            scene.scale.multiplyScalar(e.pixelsPerMeter * 0.5);
           });
           var noop = function () {};
           renderer = this.renderer = window.altspace.getThreeJSRenderer({version: '0.2.0'});

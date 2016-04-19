@@ -7,7 +7,8 @@
     <script src="../../dist/aframe.js"></script>
   </head>
   <body>
-    <a-scene vr-mode-ui="enabled: false" scale="0.1 0.1 0.1"> <!-- alt-scale -->
+    <a-scene vr-mode-ui="enabled: false" scale="0.05 0.05 0.05"> <!-- alt-scale -->
+      <a-entity position="0 -10 0">
       <a-assets>
         <a-asset-item id="tree" src="../_models/tree1/tree1.dae"></a-asset-item>
       </a-assets>
@@ -137,6 +138,7 @@
       <a-light type="directional" color="#FFF" intensity="0.45" position="4 2 1"></a-light>
       <a-light type="ambient" color="#A8A8A8"></a-light>
 
+      </a-entity>
     </a-scene>
   </body>
 </html>

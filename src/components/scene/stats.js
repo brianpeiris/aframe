@@ -1,11 +1,7 @@
 var registerComponent = require('../../core/component').registerComponent;
 var RStats = require('../../../vendor/rStats');
-require('../../../vendor/rStats.extras');
-require('../../lib/rStatsAframe');
 
 var HIDDEN_CLASS = 'a-hidden';
-var ThreeStats = window.threeStats;
-var AFrameStats = window.aframeStats;
 
 /**
  * Stats appended to document.body by RStats.
@@ -46,9 +42,6 @@ module.exports.Component = registerComponent('stats', {
 });
 
 function createStats (scene) {
-  var threeStats = new ThreeStats(scene.renderer);
-  var aframeStats = new AFrameStats(scene);
-  var plugins = scene.isMobile ? [] : [threeStats, aframeStats];
   return new RStats({
     css: [],  // Our stylesheet is injected from `src/index.js`.
     values: {
@@ -56,7 +49,6 @@ function createStats (scene) {
     },
     groups: [
       {caption: 'Framerate', values: ['fps', 'raf']}
-    ],
-    plugins: plugins
+    ]
   });
 }
