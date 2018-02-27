@@ -41,11 +41,9 @@ module.exports.Component = registerComponent('tracked-controls', {
     this.deltaControllerPosition = new THREE.Vector3();
     this.controllerQuaternion = new THREE.Quaternion();
     this.controllerEuler = new THREE.Euler();
+    this.tempRotationMatrix = new THREE.Matrix4();
 
     this.updateGamepad();
-
-    // The matrix is manipulate directly in the updatePose method.
-    this.el.object3D.matrixAutoUpdate = false;
   },
 
   tick: function (time, delta) {
@@ -166,10 +164,15 @@ module.exports.Component = registerComponent('tracked-controls', {
     // Apply transforms, if 6DOF and in VR.
     if (vrDisplay) {
       standingMatrix = this.el.sceneEl.renderer.vr.getStandingMatrix();
-      object3D.matrixAutoUpdate = false;
-      object3D.matrix.compose(object3D.position, object3D.quaternion, object3D.scale);
-      object3D.matrix.multiplyMatrices(standingMatrix, object3D.matrix);
-      object3D.matrixWorldNeedsUpdate = true;
+      object3D.position.applyMatrix4(standingMatrix);
+      this.tempRotationMatrix.identity();
+      this.tempRotationMatrix.makeRotationFromQuaternion(object3D.quaternion);
+      this.tempRotationMatrix.multiply(standingMatrix);
+      object3D.quaternion.setFromRotationMatrix(this.tempRotationMatrix);
+      object3D.scale.applyMatrix4(standingMatrix);
+      //object3D.matrix.compose(object3D.position, object3D.quaternion, object3D.scale);
+      //object3D.matrix.multiplyMatrices(standingMatrix, object3D.matrix);
+      // object3D.matrix.decompose(object3D.position, object3D.quaternion, object3D.scale);
     }
   },
 

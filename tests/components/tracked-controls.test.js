@@ -8,14 +8,16 @@ suite('tracked-controls', function () {
   var controller;
   var el;
   var system;
+  var standingMatrix = new THREE.Matrix4();
 
   setup(function (done) {
+    standingMatrix.identity();
     el = entityFactory();
     el.setAttribute('position', '');
     el.setAttribute('tracked-controls', '');
     el.addEventListener('loaded', function () {
       el.parentNode.renderer.vr.getStandingMatrix = function () {
-        return new THREE.Matrix4();
+        return standingMatrix;
       };
       component = el.components['tracked-controls'];
       system = component.system;
@@ -95,7 +97,7 @@ suite('tracked-controls', function () {
     });
   });
 
-  suite('updatePose (position)', function () {
+  suite.only('updatePose (position)', function () {
     test('defaults position to zero vector', function () {
       controller.pose.position = [0, 0, 0];
       el.setAttribute('position', '0 0 0');
@@ -129,6 +131,15 @@ suite('tracked-controls', function () {
       controller.pose.position = [2, 4, 6];
       component.tick();
       assertVec3(el.getAttribute('position'), [2, 4, 6]);
+    });
+
+    test('applies standing matrix transform', function () {
+      standingMatrix.makeTranslation(1, 0.5, -3).multiply(new THREE.Matrix4().makeRotationY(Math.PI / 4)).multiply(new THREE.Matrix4().makeScale(1.3, 1.3, 1.3));
+      standingMatrix.makeRotation(1, 0.5, -3);
+      controller.pose.position = [1, 2, 3];
+      el.sceneEl.systems['tracked-controls'].vrDisplay = true;
+      component.tick();
+      assertVec3(el.getAttribute('position'), [2, 2.5, 0]);
     });
   });
 
@@ -399,9 +410,10 @@ suite('tracked-controls', function () {
 });
 
 function assertVec3 (vec3, arr) {
-  assert.equal(vec3.x, arr[0]);
-  assert.equal(vec3.y, arr[1]);
-  assert.equal(vec3.z, arr[2]);
+  var debugOuput = vec3.toArray() + ' is not equal to ' + arr;
+  assert.equal(vec3.x, arr[0], debugOuput);
+  assert.equal(vec3.y, arr[1], debugOuput);
+  assert.equal(vec3.z, arr[2], debugOuput);
 }
 
 function assertQuaternion (quaternion, arr) {
