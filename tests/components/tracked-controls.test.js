@@ -134,8 +134,7 @@ suite('tracked-controls', function () {
     });
 
     test('applies standing matrix transform', function () {
-      standingMatrix.makeTranslation(1, 0.5, -3).multiply(new THREE.Matrix4().makeRotationY(Math.PI / 4)).multiply(new THREE.Matrix4().makeScale(1.3, 1.3, 1.3));
-      standingMatrix.makeRotation(1, 0.5, -3);
+      standingMatrix.makeTranslation(1, 0.5, -3);
       controller.pose.position = [1, 2, 3];
       el.sceneEl.systems['tracked-controls'].vrDisplay = true;
       component.tick();
