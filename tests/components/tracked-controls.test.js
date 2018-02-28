@@ -97,7 +97,7 @@ suite('tracked-controls', function () {
     });
   });
 
-  suite.only('updatePose (position)', function () {
+  suite('updatePose (position)', function () {
     test('defaults position to zero vector', function () {
       controller.pose.position = [0, 0, 0];
       el.setAttribute('position', '0 0 0');
