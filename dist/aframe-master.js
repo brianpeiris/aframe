@@ -59104,7 +59104,7 @@ module.exports={
   "_args": [
     [
       "webvr-polyfill@0.9.41",
-      "C:\\Users\\Brian Peiris\\Code\\aframevr\\aframe"
+      "/mnt/c/Users/Brian Peiris/Code/aframevr/aframe"
     ]
   ],
   "_from": "webvr-polyfill@0.9.41",
@@ -59128,7 +59128,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/webvr-polyfill/-/webvr-polyfill-0.9.41.tgz",
   "_spec": "0.9.41",
-  "_where": "C:\\Users\\Brian Peiris\\Code\\aframevr\\aframe",
+  "_where": "/mnt/c/Users/Brian Peiris/Code/aframevr/aframe",
   "authors": [
     "Boris Smus <boris@smus.com>",
     "Brandon Jones <tojiro@gmail.com>",
@@ -76238,6 +76238,10 @@ module.exports.AScene = registerElement('a-scene', {
         if (this.is('vr-mode')) { return Promise.resolve('Already in VR.'); }
         // Enter VR via WebVR API.
         if (!fromExternal && (this.checkHeadsetConnected() || this.isMobile)) {
+          if (!this.camera) {
+            // Attempted to enter VR before the camera was initialized. Aborting silently.
+            return Promise.resolve();
+          }
           vrDisplay = utils.device.getVRDisplay();
           vrManager.setDevice(vrDisplay);
           vrManager.enabled = true;
@@ -78419,7 +78423,7 @@ _dereq_('./core/a-mixin');
 _dereq_('./extras/components/');
 _dereq_('./extras/primitives/');
 
-console.log('A-Frame Version: 0.7.0 (Date 2018-03-03, Commit #9afabc5)');
+console.log('A-Frame Version: 0.7.0 (Date 2018-03-13, Commit #1e49f5e)');
 console.log('three Version:', pkg.dependencies['three']);
 console.log('WebVR Polyfill Version:', pkg.dependencies['webvr-polyfill']);
 
