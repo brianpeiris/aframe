@@ -346,7 +346,7 @@ suite('a-scene (without renderer)', function () {
       delete AFRAME.systems.foo;
     });
 
-    test('calls component tick on second entity after first entity removes itself', function (done) {
+    test.only('calls component tick on second entity after first entity removes itself', function (done) {
       var spy = this.sinon.spy();
       AFRAME.registerComponent('test', {
         tick: function () {

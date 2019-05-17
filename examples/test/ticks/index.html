@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Video</title>
+    <meta name="description" content="Video - A-Frame">
+    <script src="../../../dist/aframe-master.js"></script>
+    <script>
+      AFRAME.registerComponent("remove-self", {
+        tick() {
+          log("removing", this.el.nodeName.toLowerCase());
+          this.el.parentElement.removeChild(this.el);
+        }
+      });
+      
+      AFRAME.registerComponent("pause-after-n-frames", {
+        schema: { frames: { type: "number" } },
+        init() {
+          this.frame = 0;
+        },
+        tick() {
+          log("tick", this.frame);
+          if (this.frame === this.data.frames) {
+            log("pausing scene");
+            this.el.sceneEl.pause();
+          }
+          this.frame++;
+        }
+      });
+      
+      function log(...args) {
+        console.log.apply(null, args);
+        const entry = document.createElement("li");
+        entry.textContent = args.join(" ");
+        logEl.append(entry);
+      }
+    </script>
+  </head>
+  <body>
+    <a-scene pause-after-n-frames="frames: 1">
+      <a-box position="-3 0 -6" color="red" remove-self></a-box>
+      <a-cone position="-1 0 -6" color="green" remove-self></a-cone>
+      <a-cylinder position="1 0 -6" color="pink" remove-self></a-cylinder>
+      <a-sphere position="3 0 -6" color="blue" remove-self></a-sphere>
+      <a-plane position="0 -0.5 -6" rotation="-90 0 0" width="10" height="4" color="orange"></a-plane> 
+      <a-entity camera position="0 1.6 0"></a-entity>
+    </a-scene>
+    <ol id="logEl" style="position: absolute; top: 0; left: 0; padding-left: 15px; font-family: sans-serif; list-style-type: none"></ol>
+  </body>
+</html>
